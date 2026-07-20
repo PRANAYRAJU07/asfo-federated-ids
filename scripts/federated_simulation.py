@@ -66,9 +66,16 @@ def client_fn_factory(cfg, partitions_train, partitions_val, input_dim, output_d
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         criterion = torch.nn.CrossEntropyLoss()
         
+        from app.federated.asfo_utils import serialize_distribution
+        
+        dist = {}
+        if cfg.datasets.label_col in train_df.columns:
+            dist = train_df[cfg.datasets.label_col].value_counts(normalize=False).to_dict()
+
         metadata = {
             "partition_type": cfg.partition.type,
-            "dropout_probability": cfg.federated.get("dropout_probability", 0.0)
+            "dropout_probability": cfg.federated.get("dropout_probability", 0.0),
+            "class_distribution": serialize_distribution(dist)
         }
         
         return IDSClient(
@@ -96,18 +103,25 @@ def main(cfg: DictConfig):
     print_data_validation_report(df, cfg.datasets.name, cfg.datasets.label_col)
 
     # 2. Preprocess Data
+    # Only skip the label column for normalizer, but encode it as categorical
     pipeline = Pipeline([
         MissingValueCleaner(),
         DuplicateRemover(),
-        Encoder(cfg.datasets.categorical_cols + [cfg.datasets.label_col]),
-        Normalizer(cfg.datasets.numerical_cols)
+        Encoder(), # Auto-infers categorical columns
+        Normalizer() # Auto-infers numeric columns
     ])
     from sklearn.model_selection import train_test_split
-    # Stratified split to maintain attack proportions in train/val sets
-    train_df, val_df = train_test_split(df, test_size=0.2, random_state=cfg.core.seed, stratify=df[cfg.datasets.label_col] if cfg.datasets.label_col in df.columns else None)
+    # 70/10/20 split
+    stratify_col = df[cfg.datasets.label_col] if cfg.datasets.label_col in df.columns else None
+    train_val_df, test_df = train_test_split(df, test_size=0.2, random_state=cfg.core.seed, stratify=stratify_col)
+    
+    stratify_col_tv = train_val_df[cfg.datasets.label_col] if cfg.datasets.label_col in train_val_df.columns else None
+    # val needs to be 10% of total -> 0.1 / 0.8 = 0.125
+    train_df, val_df = train_test_split(train_val_df, test_size=0.125, random_state=cfg.core.seed, stratify=stratify_col_tv)
     
     train_df_processed = pipeline.fit_transform(train_df)
     val_df_processed = pipeline.transform(val_df)
+    test_df_processed = pipeline.transform(test_df)
     
     import os
     os.makedirs("artifacts", exist_ok=True)
@@ -118,10 +132,10 @@ def main(cfg: DictConfig):
     if metadata_file.exists():
         with open(metadata_file, "r") as f:
             metadata = json.load(f)
-            # Create a simple experiment manifest
             manifest = {
                 "dataset": cfg.datasets.name,
                 "strategy": cfg.strategy.name,
+                "seed": cfg.core.seed,
                 "num_clients": cfg.federated.num_clients,
                 "dataset_metadata": metadata,
             }
@@ -166,40 +180,79 @@ def main(cfg: DictConfig):
     output_dim = max(2, train_df_processed[cfg.datasets.label_col].nunique())
     device = torch.device(cfg.training.device if torch.cuda.is_available() and cfg.training.device == "cuda" else "cpu")
     
+    # Create Centralized Test Loader
+    from app.dataset.torch_dataset import IDSDataset
+    from torch.utils.data import DataLoader
+    test_dataset = IDSDataset(test_df_processed, label_col=cfg.datasets.label_col)
+    test_loader = DataLoader(test_dataset, batch_size=cfg.training.batch_size, shuffle=False)
+    
     mlflow.set_experiment(f"ASFO_Federated_{cfg.datasets.name}")
     
-    # 4. Benchmarking strategies (FedAvg, FedProx, FedNova)
-    strategies_to_test = ["fedavg", "fedprox", "fednova"]
+    strategy_name = cfg.strategy.name.lower()
     model_to_test = "mlp" # Use MLP for quick benchmark
     
-    for strategy_name in strategies_to_test:
-        logger.info(f"--- Running {strategy_name.upper()} ---")
+    logger.info(f"--- Running single experiment: {strategy_name.upper()} (Seed: {cfg.core.seed}) ---")
+    
+    with mlflow.start_run(run_name=f"{strategy_name}_seed_{cfg.core.seed}"):
+        mlflow.log_params(OmegaConf.to_container(cfg, resolve=True))
         
-        # Override config strategy dynamically
-        current_cfg = copy.deepcopy(cfg)
-        OmegaConf.set_struct(current_cfg, False)
-        current_cfg.strategy.name = strategy_name
-        if strategy_name == "fedprox":
-            current_cfg.strategy.proximal_mu = 0.1
-            
-        with mlflow.start_run(run_name=f"{strategy_name}_{model_to_test}"):
-            mlflow.log_params(OmegaConf.to_container(current_cfg, resolve=True))
-            
-            global_model = ModelRegistry.get_model(model_to_test, input_dim=input_dim, output_dim=output_dim)
-            checkpoint_dir = os.path.join(current_cfg.training.checkpoint_dir, "federated", strategy_name, model_to_test)
-            
-            strategy = get_strategy(current_cfg, global_model, checkpoint_dir)
-            
-            client_fn = client_fn_factory(current_cfg, partitions_train, partitions_val, input_dim, output_dim, device, model_to_test)
-            
-            # Start simulation (3 rounds for quick testing)
-            fl.simulation.start_simulation(
-                client_fn=client_fn,
-                num_clients=num_clients,
-                config=fl.server.ServerConfig(num_rounds=3),
-                strategy=strategy,
-                client_resources={"num_cpus": 1, "num_gpus": 0.0},
-            )
+        global_model = ModelRegistry.get_model(model_to_test, input_dim=input_dim, output_dim=output_dim)
+        checkpoint_dir = os.path.join(cfg.training.checkpoint_dir, "federated", strategy_name, f"seed_{cfg.core.seed}")
+        
+        # Centralized evaluation function
+        def get_evaluate_fn(model, test_loader, device):
+            def evaluate(server_round: int, parameters: fl.common.NDArrays, config: dict):
+                # Set weights
+                from app.federated.client import set_parameters
+                import time
+                set_parameters(model, parameters)
+                
+                # We use the Trainer to run the validation loop easily
+                from app.training.trainer import Trainer
+                import torch.nn as nn
+                criterion = nn.BCEWithLogitsLoss() if output_dim == 2 else nn.CrossEntropyLoss()
+                trainer = Trainer(model, optimizer=None, criterion=criterion, device=device)
+                
+                eval_start = time.time()
+                metrics = trainer._validate_epoch(test_loader, server_round)
+                eval_time = time.time() - eval_start
+                
+                metrics["evaluate_time"] = eval_time
+                
+                # Log metrics to MLflow
+                for k, v in metrics.items():
+                    mlflow.log_metric(f"server_{k}", float(v), step=server_round)
+                
+                # Also compute derived metrics if possible (e.g. Acc/s)
+                mlflow.log_metric("accuracy_per_second", metrics.get("val_accuracy", 0) / (eval_time + 1e-9), step=server_round)
+                
+                return float(metrics.get("val_loss", 0.0)), metrics
+            return evaluate
+
+        strategy = get_strategy(cfg, global_model, checkpoint_dir, evaluate_fn=get_evaluate_fn(global_model, test_loader, device))
+        
+        client_fn = client_fn_factory(cfg, partitions_train, partitions_val, input_dim, output_dim, device, model_to_test)
+        
+        import time
+        exp_start = time.time()
+        
+        fl.simulation.start_simulation(
+            client_fn=client_fn,
+            num_clients=num_clients,
+            config=fl.server.ServerConfig(num_rounds=cfg.federated.get("num_rounds", 20)),
+            strategy=strategy,
+            client_resources={"num_cpus": 1, "num_gpus": 0.0},
+        )
+        
+        exp_time = time.time() - exp_start
+        mlflow.log_metric("total_experiment_duration", exp_time)
+        
+        # Log artifacts
+        mlflow.log_artifact("artifacts/preprocessing_pipeline.pkl")
+        if os.path.exists("artifacts/partition_stats.png"):
+            mlflow.log_artifact("artifacts/partition_stats.png")
+        if os.path.exists("artifacts/experiment_manifest.json"):
+            mlflow.log_artifact("artifacts/experiment_manifest.json")
 
 if __name__ == "__main__":
     main()
