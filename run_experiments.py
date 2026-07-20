@@ -9,7 +9,6 @@ def run_experiment(dataset: str, strategy: str, seed: int):
         f"Starting Experiment: Dataset={dataset}, Strategy={strategy}, Seed={seed}"
     )
 
-
     # Since we are invoking it from a script that might already be inside uv,
     # sys.executable "scripts/federated_simulation.py" might be sufficient.
     # Let's use sys.executable directly to avoid nested uv calls.

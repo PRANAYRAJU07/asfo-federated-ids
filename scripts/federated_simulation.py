@@ -41,9 +41,6 @@ def print_data_validation_report(df: pd.DataFrame, dataset_name: str, label_col:
     logger.info("-" * 40 + "\n")
 
 
-
-
-
 def client_fn_factory(
     cfg, partitions_train, partitions_val, input_dim, output_dim, device, model_name
 ):
