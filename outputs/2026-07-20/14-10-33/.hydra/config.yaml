@@ -1,0 +1,42 @@
+datasets:
+  name: edge_iiot
+  version: '1.0'
+  source: official
+  url: https://example.com/edge_iiot.csv
+  task: classification
+  features:
+  - frame.time
+  - ip.src_host
+  - ip.dst_host
+  - arp.dst.proto_ipv4
+  label_col: Attack_type
+  categorical_cols:
+  - ip.src_host
+  - ip.dst_host
+  numerical_cols:
+  - arp.dst.proto_ipv4
+partition:
+  type: iid
+  num_clients: 3
+  fraction_fit: 1.0
+training:
+  epochs: 10
+  batch_size: 64
+  device: cpu
+  early_stopping_patience: 3
+  log_dir: logs/
+  checkpoint_dir: checkpoints/
+federated:
+  num_clients: 3
+  fraction_fit: 1.0
+  fraction_evaluate: 1.0
+  min_fit_clients: 2
+  min_evaluate_clients: 2
+  min_available_clients: 3
+  dropout_probability: 0.0
+strategy:
+  name: fedavg
+core:
+  project_name: ASFO
+  seed: 42
+  log_level: INFO

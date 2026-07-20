@@ -1,0 +1,12 @@
+defaults:
+  - datasets: edge_iiot
+  - partition: iid
+  - training: trainer
+  - federated: simulation
+  - strategy: fedavg
+  - _self_
+
+core:
+  project_name: "ASFO"
+  seed: 42
+  log_level: "INFO"

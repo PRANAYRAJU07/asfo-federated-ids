@@ -1,0 +1,20 @@
+site_name: ASFO Research
+site_description: Adaptive Semantic Federated Optimization for Cross-Domain Intrusion Detection
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - API Reference: api.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences

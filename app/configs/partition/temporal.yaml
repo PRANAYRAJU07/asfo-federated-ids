@@ -1,0 +1,4 @@
+type: "temporal"
+num_clients: 3
+time_column: "timestamp"
+overlap_ratio: 0.1

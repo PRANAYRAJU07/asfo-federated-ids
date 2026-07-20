@@ -1,0 +1,6 @@
+type: "domain"
+num_clients: 3
+domain_mapping:
+  client_1: "IoT"
+  client_2: "Enterprise"
+  client_3: "Cloud"

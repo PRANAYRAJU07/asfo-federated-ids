@@ -1,0 +1,2077 @@
+[2026-07-20 14:16:20,532][flwr][INFO] - Starting Flower simulation, config: num_rounds=3, no round_timeout
+[2026-07-20 14:16:31,340][flwr][INFO] - Flower VCE: Ray initialized with resources: {'CPU': 16.0, 'node:__internal_head__': 1.0, 'node:127.0.0.1': 1.0, 'memory': 1813114061.0, 'object_store_memory': 777048883.0}
+[2026-07-20 14:16:31,340][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.ai/docs/framework/how-to-run-simulations.html
+[2026-07-20 14:16:31,340][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 1, 'num_gpus': 0.0}
+[2026-07-20 14:16:31,665][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 16 actors
+[2026-07-20 14:16:31,666][flwr][INFO] - [INIT]
+[2026-07-20 14:16:31,666][flwr][INFO] - Requesting initial parameters from one random client
+[2026-07-20 14:16:41,110][flwr][INFO] - Received initial parameters from one random client
+[2026-07-20 14:16:41,110][flwr][INFO] - Evaluating initial global parameters
+[2026-07-20 14:16:41,110][flwr][INFO] - 
+[2026-07-20 14:16:41,110][flwr][INFO] - [ROUND 1]
+[2026-07-20 14:16:41,110][flwr][INFO] - configure_fit: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:41,607][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:41,607][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:47,175][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:47,176][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:49,531][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:49,532][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:49,534][flwr][INFO] - aggregate_fit: received 0 results and 3 failures
+[2026-07-20 14:16:49,534][flwr][INFO] - configure_evaluate: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:49,571][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:49,573][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:49,636][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+[2026-07-20 14:16:49,637][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+[2026-07-20 14:16:52,642][flwr][INFO] - aggregate_evaluate: received 1 results and 2 failures
+[2026-07-20 14:16:52,759][flwr][INFO] - 
+[2026-07-20 14:16:52,760][flwr][INFO] - [ROUND 2]
+[2026-07-20 14:16:52,760][flwr][INFO] - configure_fit: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:52,780][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:52,782][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:52,856][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:52,857][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:52,864][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:52,865][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:52,866][flwr][INFO] - aggregate_fit: received 0 results and 3 failures
+[2026-07-20 14:16:52,867][flwr][INFO] - configure_evaluate: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:52,885][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:52,886][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:52,905][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+[2026-07-20 14:16:52,906][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+[2026-07-20 14:16:52,915][flwr][INFO] - aggregate_evaluate: received 1 results and 2 failures
+[2026-07-20 14:16:52,975][flwr][INFO] - 
+[2026-07-20 14:16:52,976][flwr][INFO] - [ROUND 3]
+[2026-07-20 14:16:52,976][flwr][INFO] - configure_fit: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:53,000][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:53,001][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:53,090][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:53,090][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:53,378][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+[2026-07-20 14:16:53,379][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 130, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 234, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 238, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 52, in fit
+    self.trainer.fit(self.train_loader, self.val_loader, epochs=self.epochs,
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 37, in fit
+    train_logs = self._train_epoch(train_loader, epoch, proximal_mu, global_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 83, in _train_epoch
+    output = self.model(data)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\mlp.py", line 24, in forward
+    return self.network(x)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\container.py", line 253, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\modules\batchnorm.py", line 210, in forward
+    return F.batch_norm(
+           ^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2889, in batch_norm
+    _verify_batch_size(input.size())
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\nn\functional.py", line 2854, in _verify_batch_size
+    raise ValueError(
+ValueError: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=39568, ip=127.0.0.1, actor_id=cee08d6358ce04ebaa5e3d1b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001D6458A6BA0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Expected more than 1 value per channel when training, got input size torch.Size([1, 128])
+[2026-07-20 14:16:53,381][flwr][INFO] - aggregate_fit: received 0 results and 3 failures
+[2026-07-20 14:16:53,382][flwr][INFO] - configure_evaluate: strategy sampled 3 clients (out of 3)
+[2026-07-20 14:16:53,406][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+
+[2026-07-20 14:16:53,406][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 44, in client_fn
+    train_loader = data_module.train_dataloader()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\datasets\loader.py", line 31, in train_dataloader
+    return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 401, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore[arg-type]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\torch\utils\data\sampler.py", line 149, in __init__
+    raise ValueError(
+ValueError: num_samples should be a positive integer value, but got num_samples=0
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=35256, ip=127.0.0.1, actor_id=5c8c59b445e6b52e1161b7df01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000002497DA92AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: num_samples should be a positive integer value, but got num_samples=0
+[2026-07-20 14:16:53,417][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+[2026-07-20 14:16:53,418][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 137, in handle_legacy_message_from_msgtype
+    evaluate_res = maybe_call_evaluate(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client.py", line 254, in maybe_call_evaluate
+    return client.evaluate(evaluate_ins)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\numpy_client.py", line 262, in _evaluate
+    results = self.numpy_client.evaluate(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\federated\client.py", line 71, in evaluate
+    val_metrics = self.trainer._validate_epoch(self.val_loader, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\training\trainer.py", line 131, in _validate_epoch
+    metrics = compute_metrics(all_targets, all_preds, all_probs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\evaluation\metrics.py", line 8, in compute_metrics
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 405, in accuracy_score
+    y_type, _, y_true, y_pred, sample_weight = _check_targets(
+                                               ^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\sklearn\metrics\_classification.py", line 120, in _check_targets
+    raise ValueError(
+ValueError: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=27660, ip=127.0.0.1, actor_id=0b9615856a744d6c77e7b1f701000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x000001953B6B68D0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Found empty input array (e.g., `y_true` or `y_pred`) while a minimum of 1 sample is required.
+[2026-07-20 14:16:53,423][flwr][INFO] - aggregate_evaluate: received 1 results and 2 failures
+[2026-07-20 14:16:53,491][flwr][INFO] - 
+[2026-07-20 14:16:53,491][flwr][INFO] - [SUMMARY]
+[2026-07-20 14:16:53,491][flwr][INFO] - Run finished 3 round(s) in 12.38s
+[2026-07-20 14:16:53,491][flwr][INFO] - 	History (loss, distributed):
+[2026-07-20 14:16:53,492][flwr][INFO] - 		round 1: 0.5363152027130127
+[2026-07-20 14:16:53,492][flwr][INFO] - 		round 2: 0.5363152027130127
+[2026-07-20 14:16:53,492][flwr][INFO] - 		round 3: 0.5363152027130127
+[2026-07-20 14:16:53,493][flwr][INFO] - 	History (metrics, distributed, evaluate):
+[2026-07-20 14:16:53,493][flwr][INFO] - 	{'accuracy': [(1, 1.0), (2, 1.0), (3, 1.0)]}
+[2026-07-20 14:16:53,493][flwr][INFO] - 

@@ -1,0 +1,218 @@
+[2026-07-20 14:14:43,005][flwr][INFO] - Starting Flower simulation, config: num_rounds=3, no round_timeout
+[2026-07-20 14:14:57,070][flwr][INFO] - Flower VCE: Ray initialized with resources: {'CPU': 16.0, 'memory': 389308416.0, 'node:127.0.0.1': 1.0, 'object_store_memory': 166846464.0, 'node:__internal_head__': 1.0}
+[2026-07-20 14:14:57,070][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.ai/docs/framework/how-to-run-simulations.html
+[2026-07-20 14:14:57,070][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 1, 'num_gpus': 0.0}
+[2026-07-20 14:14:57,396][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 16 actors
+[2026-07-20 14:14:57,397][flwr][INFO] - [INIT]
+[2026-07-20 14:14:57,397][flwr][INFO] - Requesting initial parameters from one random client
+[2026-07-20 14:15:13,856][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 41, in client_fn
+    model = ModelRegistry.get_model(model_name, input_dim=input_dim, output_dim=output_dim)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\registry.py", line 20, in get_model
+    raise ValueError(f"Model {name} not found in registry: {name}")
+ValueError: Model mlp not found in registry: mlp
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Model mlp not found in registry: mlp
+
+[2026-07-20 14:15:13,857][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 41, in client_fn
+    model = ModelRegistry.get_model(model_name, input_dim=input_dim, output_dim=output_dim)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\registry.py", line 20, in get_model
+    raise ValueError(f"Model {name} not found in registry: {name}")
+ValueError: Model mlp not found in registry: mlp
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Model mlp not found in registry: mlp
+[2026-07-20 14:15:13,857][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 41, in client_fn
+    model = ModelRegistry.get_model(model_name, input_dim=input_dim, output_dim=output_dim)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\registry.py", line 20, in get_model
+    raise ValueError(f"Model {name} not found in registry: {name}")
+ValueError: Model mlp not found in registry: mlp
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Model mlp not found in registry: mlp
+[2026-07-20 14:15:13,860][flwr][ERROR] - Traceback (most recent call last):
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\app.py", line 323, in start_simulation
+    hist = run_fl(
+           ^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\server\server.py", line 490, in run_fl
+    hist, elapsed_time = server.fit(
+                         ^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\server\server.py", line 93, in fit
+    self.parameters = self._get_initial_parameters(server_round=0, timeout=timeout)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\server\server.py", line 282, in _get_initial_parameters
+    get_parameters_res = random_client.get_parameters(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 148, in get_parameters
+    message_out = self._submit_job(message, timeout)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 87, in _submit_job
+    raise ex
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_client_proxy.py", line 73, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 399, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 280, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\client_mode_hook.py", line 110, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 2968, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\worker.py", line 1050, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 98, in __call__
+    return self._call(message, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\client_app.py", line 81, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\client\message_handler\message_handler.py", line 96, in handle_legacy_message_from_msgtype
+    client = client_fn(str(message.metadata.partition_id))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\scripts\federated_simulation.py", line 41, in client_fn
+    model = ModelRegistry.get_model(model_name, input_dim=input_dim, output_dim=output_dim)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\app\models\registry.py", line 20, in get_model
+    raise ValueError(f"Model {name} not found in registry: {name}")
+ValueError: Model mlp not found in registry: mlp
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=22712, ip=127.0.0.1, actor_id=b26421e2cab6ddb8a7f1f7e201000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x0000018E70006AB0>)
+  File "python\\ray\\_raylet.pyx", line 1836, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1947, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1843, in ray._raylet.execute_task
+  File "python\\ray\\_raylet.pyx", line 1786, in ray._raylet.execute_task.function_executor
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\_private\function_manager.py", line 740, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\ray\util\tracing\tracing_helper.py", line 487, in _resume_span
+    return method(self, *_args, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prana\OneDrive\Desktop\federated\.venv\Lib\site-packages\flwr\simulation\ray_transport\ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: Model mlp not found in registry: mlp
+
+[2026-07-20 14:15:13,861][flwr][ERROR] - Your simulation crashed :(. This could be because of several reasons. The most common are: 
+	 > Sometimes, issues in the simulation code itself can cause crashes. It's always a good idea to double-check your code for any potential bugs or inconsistencies that might be contributing to the problem. For example: 
+		 - You might be using a class attribute in your clients that hasn't been defined.
+		 - There could be an incorrect method call to a 3rd party library (e.g., PyTorch).
+		 - The return types of methods in your clients/strategies might be incorrect.
+	 > Your system couldn't fit a single VirtualClient: try lowering `client_resources`.
+	 > All the actors in your pool crashed. This could be because: 
+		 - You clients hit an out-of-memory (OOM) error and actors couldn't recover from it. Try launching your simulation with more generous `client_resources` setting (i.e. it seems {'num_cpus': 1, 'num_gpus': 0.0} is not enough for your run). Use fewer concurrent actors. 
+		 - You were running a multi-node simulation and all worker nodes disconnected. The head node might still be alive but cannot accommodate any actor with resources: {'num_cpus': 1, 'num_gpus': 0.0}.
+Take a look at the Flower simulation examples for guidance <https://flower.ai/docs/framework/how-to-run-simulations.html>.

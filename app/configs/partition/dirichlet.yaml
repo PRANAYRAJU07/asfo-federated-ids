@@ -1,0 +1,3 @@
+type: "dirichlet"
+num_clients: 3
+alpha: 0.5
