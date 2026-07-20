@@ -1,9 +1,10 @@
-from typing import List, Any, Dict
+from typing import List, Dict
 import pandas as pd
 import numpy as np
 from abc import ABC, abstractmethod
 from loguru import logger
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+
 
 class PreprocessingStep(ABC):
     @abstractmethod
@@ -13,10 +14,11 @@ class PreprocessingStep(ABC):
     @abstractmethod
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
         pass
-        
+
     def fit_transform(self, df: pd.DataFrame) -> pd.DataFrame:
         self.fit(df)
         return self.transform(df)
+
 
 class MissingValueCleaner(PreprocessingStep):
     def fit(self, df: pd.DataFrame) -> None:
@@ -26,6 +28,7 @@ class MissingValueCleaner(PreprocessingStep):
         logger.info("Cleaning missing values")
         return df.dropna()
 
+
 class DuplicateRemover(PreprocessingStep):
     def fit(self, df: pd.DataFrame) -> None:
         pass
@@ -33,6 +36,7 @@ class DuplicateRemover(PreprocessingStep):
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
         logger.info("Removing duplicates")
         return df.drop_duplicates()
+
 
 class OutlierCleaner(PreprocessingStep):
     def fit(self, df: pd.DataFrame) -> None:
@@ -42,13 +46,20 @@ class OutlierCleaner(PreprocessingStep):
         logger.info("Cleaning outliers (placeholder)")
         return df
 
+
 class Encoder(PreprocessingStep):
-    def __init__(self, categorical_cols: List[str]):
-        self.categorical_cols = categorical_cols
+    def __init__(self, categorical_cols: List[str] = None):
+        self.categorical_cols = categorical_cols if categorical_cols is not None else []
         self.encoders: Dict[str, LabelEncoder] = {}
 
     def fit(self, df: pd.DataFrame) -> None:
-        logger.info(f"Fitting categorical encoders for: {self.categorical_cols}")
+        if not self.categorical_cols:
+            self.categorical_cols = df.select_dtypes(
+                include=["object", "category", "string"]
+            ).columns.tolist()
+        logger.info(
+            f"Fitting categorical encoders for {len(self.categorical_cols)} columns"
+        )
         for col in self.categorical_cols:
             if col in df.columns:
                 le = LabelEncoder()
@@ -69,13 +80,18 @@ class Encoder(PreprocessingStep):
                 df_out[col] = le.transform(series)
         return df_out
 
+
 class Normalizer(PreprocessingStep):
-    def __init__(self, numerical_cols: List[str]):
-        self.numerical_cols = numerical_cols
+    def __init__(self, numerical_cols: List[str] = None):
+        self.numerical_cols = numerical_cols if numerical_cols is not None else []
         self.scaler = StandardScaler()
 
     def fit(self, df: pd.DataFrame) -> None:
-        logger.info(f"Fitting normalizer for numerical columns: {self.numerical_cols}")
+        if not self.numerical_cols:
+            self.numerical_cols = df.select_dtypes(include=["number"]).columns.tolist()
+        logger.info(
+            f"Fitting normalizer for {len(self.numerical_cols)} numerical columns"
+        )
         cols_to_scale = [c for c in self.numerical_cols if c in df.columns]
         if cols_to_scale:
             self.scaler.fit(df[cols_to_scale])
@@ -87,6 +103,7 @@ class Normalizer(PreprocessingStep):
             df_out[cols_to_scale] = self.scaler.transform(df_out[cols_to_scale])
             df_out[cols_to_scale] = df_out[cols_to_scale].astype(np.float32)
         return df_out
+
 
 class Pipeline:
     def __init__(self, steps: List[PreprocessingStep]):
@@ -106,21 +123,23 @@ class Pipeline:
         for step in self.steps:
             df_out = step.transform(df_out)
         return df_out
-        
+
     def fit_transform(self, df: pd.DataFrame) -> pd.DataFrame:
         self.fit(df)
         return self.transform(df)
 
     def save(self, filepath: str) -> None:
         import pickle
-        with open(filepath, 'wb') as f:
+
+        with open(filepath, "wb") as f:
             pickle.dump(self, f)
         logger.info(f"Pipeline artifacts saved to {filepath}")
 
     @classmethod
     def load(cls, filepath: str) -> "Pipeline":
         import pickle
-        with open(filepath, 'rb') as f:
+
+        with open(filepath, "rb") as f:
             pipeline = pickle.load(f)
         logger.info(f"Pipeline artifacts loaded from {filepath}")
         return pipeline

@@ -7,9 +7,12 @@ from app.federated.strategy.fedprox import FedProxStrategy
 from app.federated.strategy.fednova import FedNovaStrategy
 from app.federated.asfo import ASFOStrategy
 
-def get_strategy(cfg: DictConfig, model: torch.nn.Module, checkpoint_dir: str, **kwargs) -> Strategy:
+
+def get_strategy(
+    cfg: DictConfig, model: torch.nn.Module, checkpoint_dir: str, **kwargs
+) -> Strategy:
     """Factory to create the specified Federated Learning strategy."""
-    
+
     strategy_name = cfg.strategy.name.lower()
 
     if strategy_name.startswith("asfo"):
@@ -26,15 +29,15 @@ def get_strategy(cfg: DictConfig, model: torch.nn.Module, checkpoint_dir: str, *
             min_fit_clients=cfg.federated.min_fit_clients,
             min_evaluate_clients=cfg.federated.min_evaluate_clients,
             min_available_clients=cfg.federated.min_available_clients,
-            evaluate_fn=kwargs.get("evaluate_fn")
+            evaluate_fn=kwargs.get("evaluate_fn"),
         )
-    
+
     fraction_fit = cfg.federated.get("fraction_fit", 1.0)
     fraction_evaluate = cfg.federated.get("fraction_evaluate", 1.0)
     min_fit_clients = cfg.federated.get("min_fit_clients", 2)
     min_evaluate_clients = cfg.federated.get("min_evaluate_clients", 2)
     min_available_clients = cfg.federated.get("min_available_clients", 2)
-    
+
     common_kwargs = {
         "model": model,
         "checkpoint_dir": checkpoint_dir,
@@ -43,9 +46,9 @@ def get_strategy(cfg: DictConfig, model: torch.nn.Module, checkpoint_dir: str, *
         "min_fit_clients": min_fit_clients,
         "min_evaluate_clients": min_evaluate_clients,
         "min_available_clients": min_available_clients,
-        "evaluate_fn": kwargs.get("evaluate_fn")
+        "evaluate_fn": kwargs.get("evaluate_fn"),
     }
-    
+
     if strategy_name == "fedavg":
         return FedAvgStrategy(**common_kwargs)
     elif strategy_name == "fedprox":

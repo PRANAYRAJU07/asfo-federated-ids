@@ -3,6 +3,7 @@ import numpy as np
 import random
 from loguru import logger
 
+
 def set_seed(seed: int = 42):
     """Set the seed for reproducibility."""
     random.seed(seed)

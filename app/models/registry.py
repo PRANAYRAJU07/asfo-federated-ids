@@ -2,6 +2,7 @@ from typing import Dict, Type
 import torch.nn as nn
 from loguru import logger
 
+
 class ModelRegistry:
     _registry: Dict[str, Type[nn.Module]] = {}
 
@@ -12,6 +13,7 @@ class ModelRegistry:
                 logger.warning(f"Model {name} already registered. Overwriting.")
             cls._registry[name] = wrapped_class
             return wrapped_class
+
         return inner_wrapper
 
     @classmethod

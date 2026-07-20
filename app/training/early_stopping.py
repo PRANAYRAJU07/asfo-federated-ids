@@ -1,8 +1,9 @@
 from app.training.callbacks import Callback
 from loguru import logger
 
+
 class EarlyStopping(Callback):
-    def __init__(self, monitor='val_loss', min_delta=0.0, patience=5, mode='min'):
+    def __init__(self, monitor="val_loss", min_delta=0.0, patience=5, mode="min"):
         self.monitor = monitor
         self.min_delta = min_delta
         self.patience = patience
@@ -11,8 +12,8 @@ class EarlyStopping(Callback):
         self.wait = 0
         self.stopped_epoch = 0
         self.stop_training = False
-        
-        if self.mode == 'min':
+
+        if self.mode == "min":
             self.monitor_op = lambda current, best: current < best - self.min_delta
         else:
             self.monitor_op = lambda current, best: current > best + self.min_delta
@@ -20,9 +21,11 @@ class EarlyStopping(Callback):
     def on_epoch_end(self, epoch, logs=None):
         logs = logs or {}
         current = logs.get(self.monitor)
-        
+
         if current is None:
-            logger.warning(f"EarlyStopping monitoring {self.monitor} which is not available.")
+            logger.warning(
+                f"EarlyStopping monitoring {self.monitor} which is not available."
+            )
             return
 
         if self.best_score is None:

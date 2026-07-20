@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
-from typing import List, Dict, Tuple
+from typing import List
 from loguru import logger
+
 
 class Partitioner:
     @staticmethod
@@ -11,24 +12,33 @@ class Partitioner:
         return np.array_split(shuffled, num_clients)
 
     @staticmethod
-    def dirichlet_partition(df: pd.DataFrame, label_col: str, num_clients: int, alpha: float) -> List[pd.DataFrame]:
-        logger.info(f"Partitioning data using Dirichlet distribution (alpha={alpha}) into {num_clients} clients")
+    def dirichlet_partition(
+        df: pd.DataFrame, label_col: str, num_clients: int, alpha: float
+    ) -> List[pd.DataFrame]:
+        logger.info(
+            f"Partitioning data using Dirichlet distribution (alpha={alpha}) into {num_clients} clients"
+        )
         # Simplified simulation of Dirichlet partitioning
         labels = df[label_col].unique()
         partitions = [pd.DataFrame()] * num_clients
-        
+
         for label in labels:
             label_data = df[df[label_col] == label]
             proportions = np.random.dirichlet(np.repeat(alpha, num_clients))
             proportions = proportions / proportions.sum()
-            splits = np.split(label_data.sample(frac=1), (np.cumsum(proportions)[:-1] * len(label_data)).astype(int))
+            splits = np.split(
+                label_data.sample(frac=1),
+                (np.cumsum(proportions)[:-1] * len(label_data)).astype(int),
+            )
             for i in range(num_clients):
                 partitions[i] = pd.concat([partitions[i], splits[i]])
-                
+
         return partitions
 
     @staticmethod
-    def domain_partition(df: pd.DataFrame, domain_col: str, num_clients: int) -> List[pd.DataFrame]:
+    def domain_partition(
+        df: pd.DataFrame, domain_col: str, num_clients: int
+    ) -> List[pd.DataFrame]:
         logger.info(f"Partitioning data by domain column {domain_col}")
         domains = df[domain_col].unique()
         partitions = []
@@ -39,7 +49,9 @@ class Partitioner:
         return partitions[:num_clients]
 
     @staticmethod
-    def temporal_partition(df: pd.DataFrame, time_col: str, num_clients: int) -> List[pd.DataFrame]:
+    def temporal_partition(
+        df: pd.DataFrame, time_col: str, num_clients: int
+    ) -> List[pd.DataFrame]:
         logger.info(f"Partitioning data temporally based on {time_col}")
         sorted_df = df.sort_values(by=time_col).reset_index(drop=True)
         return np.array_split(sorted_df, num_clients)
