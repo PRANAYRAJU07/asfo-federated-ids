@@ -230,7 +230,10 @@ def main(cfg: DictConfig):
 
     with mlflow.start_run(run_name=f"{strategy_name}_seed_{cfg.core.seed}"):
         import typing
-        params = typing.cast(dict[str, typing.Any], OmegaConf.to_container(cfg, resolve=True))
+
+        params = typing.cast(
+            dict[str, typing.Any], OmegaConf.to_container(cfg, resolve=True)
+        )
         mlflow.log_params(params)
 
         global_model = ModelRegistry.get_model(
