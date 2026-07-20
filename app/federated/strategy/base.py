@@ -15,7 +15,9 @@ from app.federated.utils import compute_byte_size, set_parameters
 def weighted_average_metrics(
     metrics: List[Tuple[int, Dict[str, Scalar]]],
 ) -> Dict[str, Scalar]:
-    accuracies = [num_examples * float(str(m["accuracy"])) for num_examples, m in metrics]
+    accuracies = [
+        num_examples * float(str(m["accuracy"])) for num_examples, m in metrics
+    ]
     examples = [num_examples for num_examples, _ in metrics]
     return {"accuracy": sum(accuracies) / sum(examples)}
 

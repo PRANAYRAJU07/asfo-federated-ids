@@ -239,7 +239,10 @@ class ASFOStrategy(fl.server.strategy.FedAvg):
         summed_deltas = []
         num_layers = len(client_deltas[0])
         for i in range(num_layers):
-            layer_sum = sum((wd[i] for wd in weighted_deltas), start=np.zeros_like(client_deltas[0][i]))
+            layer_sum = sum(
+                (wd[i] for wd in weighted_deltas),
+                start=np.zeros_like(client_deltas[0][i]),
+            )
             summed_deltas.append(layer_sum)
 
         return summed_deltas

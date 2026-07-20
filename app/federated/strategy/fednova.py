@@ -25,7 +25,10 @@ class FedNovaStrategy(BaseStrategy):
             return None, {}
 
         bytes_uploaded = sum(
-            [int(float(str(fit_res.metrics.get("bytes_uploaded", 0)))) for _, fit_res in results]
+            [
+                int(float(str(fit_res.metrics.get("bytes_uploaded", 0))))
+                for _, fit_res in results
+            ]
         )
         agg_start = time.time()
 
