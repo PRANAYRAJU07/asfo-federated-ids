@@ -48,7 +48,7 @@ def benchmark(cfg: DictConfig):
             Normalizer(numerical_cols=cfg.datasets.get("numerical_cols", [])),
         ]
     )
-    df_processed = pipeline.run(df)
+    df_processed = pipeline.fit_transform(df)
     prep_time = time.time() - prep_start
     logger.info(f"Preprocessing Time: {prep_time:.2f}s")
 
