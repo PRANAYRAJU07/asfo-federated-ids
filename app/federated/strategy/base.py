@@ -15,7 +15,7 @@ from app.federated.utils import compute_byte_size, set_parameters
 def weighted_average_metrics(
     metrics: List[Tuple[int, Dict[str, Scalar]]],
 ) -> Dict[str, Scalar]:
-    accuracies = [num_examples * m["accuracy"] for num_examples, m in metrics]
+    accuracies = [num_examples * float(str(m["accuracy"])) for num_examples, m in metrics]
     examples = [num_examples for num_examples, _ in metrics]
     return {"accuracy": sum(accuracies) / sum(examples)}
 
@@ -45,7 +45,7 @@ class BaseStrategy(FedAvg):
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
         bytes_uploaded = 0
         for _, fit_res in results:
-            bytes_uploaded += fit_res.metrics.get("bytes_uploaded", 0)
+            bytes_uploaded += int(float(str(fit_res.metrics.get("bytes_uploaded", 0))))
 
         agg_start = time.time()
         aggregated_parameters, metrics_aggregated = super().aggregate_fit(
@@ -65,7 +65,7 @@ class BaseStrategy(FedAvg):
         agg_end = time.time()
         ndarrays = parameters_to_ndarrays(aggregated_parameters)
         bytes_downloaded = compute_byte_size(ndarrays) * len(results)
-        bytes_total = bytes_uploaded + bytes_downloaded
+        bytes_total = float(bytes_uploaded) + float(bytes_downloaded)
         self.last_bytes_total = bytes_total
 
         set_parameters(self.global_model, ndarrays)
@@ -100,7 +100,7 @@ class BaseStrategy(FedAvg):
     ) -> Tuple[Optional[float], Dict[str, Scalar]]:
         loss, metrics = super().aggregate_evaluate(server_round, results, failures)
         if loss is not None and metrics:
-            acc = metrics.get("accuracy", 0.0)
+            acc = float(str(metrics.get("accuracy", 0.0)))
             logger.info(
                 f"Round {server_round} Evaluation | Loss: {loss:.4f} | Accuracy: {acc:.4f}"
             )

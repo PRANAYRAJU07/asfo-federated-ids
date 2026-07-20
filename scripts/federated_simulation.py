@@ -229,7 +229,9 @@ def main(cfg: DictConfig):
     )
 
     with mlflow.start_run(run_name=f"{strategy_name}_seed_{cfg.core.seed}"):
-        mlflow.log_params(OmegaConf.to_container(cfg, resolve=True))
+        params = OmegaConf.to_container(cfg, resolve=True)
+        assert isinstance(params, dict)
+        mlflow.log_params(params)
 
         global_model = ModelRegistry.get_model(
             model_to_test, input_dim=input_dim, output_dim=output_dim

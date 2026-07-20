@@ -25,7 +25,7 @@ class FedNovaStrategy(BaseStrategy):
             return None, {}
 
         bytes_uploaded = sum(
-            [fit_res.metrics.get("bytes_uploaded", 0) for _, fit_res in results]
+            [int(float(str(fit_res.metrics.get("bytes_uploaded", 0)))) for _, fit_res in results]
         )
         agg_start = time.time()
 
@@ -42,7 +42,7 @@ class FedNovaStrategy(BaseStrategy):
         for _, fit_res in results:
             client_params = parameters_to_ndarrays(fit_res.parameters)
             # Default to num_examples if local_steps isn't passed
-            tau_i = fit_res.metrics.get("local_steps", fit_res.num_examples)
+            tau_i = float(str(fit_res.metrics.get("local_steps", fit_res.num_examples)))
 
             # delta_i = global - client
             delta_i = [g - c for g, c in zip(global_params, client_params)]

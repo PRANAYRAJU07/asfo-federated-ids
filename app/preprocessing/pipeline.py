@@ -48,7 +48,7 @@ class OutlierCleaner(PreprocessingStep):
 
 
 class Encoder(PreprocessingStep):
-    def __init__(self, categorical_cols: List[str] = None):
+    def __init__(self, categorical_cols: List[str] | None = None):
         self.categorical_cols = categorical_cols if categorical_cols is not None else []
         self.encoders: Dict[str, LabelEncoder] = {}
 
@@ -82,7 +82,7 @@ class Encoder(PreprocessingStep):
 
 
 class Normalizer(PreprocessingStep):
-    def __init__(self, numerical_cols: List[str] = None):
+    def __init__(self, numerical_cols: List[str] | None = None):
         self.numerical_cols = numerical_cols if numerical_cols is not None else []
         self.scaler = StandardScaler()
 

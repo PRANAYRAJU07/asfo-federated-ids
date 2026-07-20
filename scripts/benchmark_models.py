@@ -4,7 +4,7 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 import torch
 from loguru import logger
-from tabulate import tabulate
+from tabulate import tabulate  # type: ignore
 import mlflow
 
 from app.core.utils import set_seed

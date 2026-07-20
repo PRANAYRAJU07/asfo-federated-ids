@@ -19,7 +19,7 @@ class IDSClient(fl.client.NumPyClient):
         criterion,
         device,
         epochs: int,
-        metadata: dict = None,
+        metadata: dict | None = None,
     ):
         self.cid = cid
         self.model = model
@@ -56,7 +56,7 @@ class IDSClient(fl.client.NumPyClient):
         logger.info(f"Client {self.cid}: fit starting")
         self.set_parameters(parameters)
 
-        proximal_mu = config.get("proximal_mu", 0.0)
+        proximal_mu = float(str(config.get("proximal_mu", 0.0)))
         global_params = None
         if proximal_mu > 0.0:
             global_params = [

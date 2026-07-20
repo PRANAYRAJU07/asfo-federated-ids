@@ -14,7 +14,7 @@ class MLP(BaseIDSModel):
         dropout: float = 0.2,
     ):
         super().__init__()
-        layers = []
+        layers: list[nn.Module] = []
         in_dim = input_dim
 
         for h_dim in hidden_dims:

@@ -100,7 +100,7 @@ class ASFOStrategy(fl.server.strategy.FedAvg):
             client_sizes.append(fit_res.num_examples)
 
             dist_str = fit_res.metrics.get("class_distribution", "{}")
-            dist = deserialize_distribution(dist_str)
+            dist = deserialize_distribution(str(dist_str))
             client_distributions.append(dist)
 
             # Update global rarity state
@@ -239,7 +239,7 @@ class ASFOStrategy(fl.server.strategy.FedAvg):
         summed_deltas = []
         num_layers = len(client_deltas[0])
         for i in range(num_layers):
-            layer_sum = sum(wd[i] for wd in weighted_deltas)
+            layer_sum = sum((wd[i] for wd in weighted_deltas), start=np.zeros_like(client_deltas[0][i]))
             summed_deltas.append(layer_sum)
 
         return summed_deltas

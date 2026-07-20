@@ -25,7 +25,7 @@ class Trainer:
         val_loader,
         epochs: int,
         proximal_mu: float = 0.0,
-        global_params: list = None,
+        global_params: list | None = None,
     ):
         logger.info(f"Starting training for {epochs} epochs on {self.device}")
 

@@ -16,7 +16,7 @@ class CNN(BaseIDSModel):
     ):
         super().__init__()
         self.input_dim = input_dim
-        layers = []
+        layers: list[nn.Module] = []
         in_channels = 1
 
         feature_size = input_dim
